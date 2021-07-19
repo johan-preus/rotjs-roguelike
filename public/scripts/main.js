@@ -1,6 +1,6 @@
 const Game = {
-    screenWidth: 60,
-    screenHeight: 30,
+    screenWidth: 30,
+    screenHeight: 60,
     currentScreen: null,
     display: null,
     init() {
@@ -19,8 +19,6 @@ const Game = {
         bindEventToScreen("keyup")
         bindEventToScreen("keypress")
         document.body.appendChild(this.display.getContainer())
-        // this.map = new Map(this.width, this.height, this.depth)
-        // this.player = new Player()
         this.switchScreen(startScreen)
     },
     switchScreen(screen){
