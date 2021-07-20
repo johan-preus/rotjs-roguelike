@@ -29,11 +29,10 @@ const playScreen = {
         const tiles = builder.tiles
 
         // should this be in Game obj instead? may make more sense than screen obj
-        this.player = new Player(playerTemplate)
+        Game.player = new Player(playerTemplate)
         // player is null for now
         // get random empty position and pass it as player position
-        this.map = new Map(tiles[0], this.player)
-        // this.player.map = this.map
+        this.map = new Map(tiles[0], Game.player)
         this.map.engine.start()
     },
     exit() {
