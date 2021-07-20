@@ -27,9 +27,13 @@ const playScreen = {
         const mapDepth = 3
         const builder = new Builder(mapWidth, mapHeight, mapDepth)
         const tiles = builder.tiles
+
+        // should this be in Game obj instead? may make more sense than screen obj
+        this.player = new Player(playerTemplate)
         // player is null for now
         // get random empty position and pass it as player position
-        this.map = new Map(tiles[0], null)
+        this.map = new Map(tiles[0], this.player)
+        // this.player.map = this.map
         this.map.engine.start()
     },
     exit() {
@@ -45,6 +49,11 @@ const playScreen = {
                 const tile = this.map.getTile(x, y)
                 display.draw(x, y, tile.char, tile.foreground, tile.background)
             }
+        }
+        const entities = this.map.entities
+        for (let i = 0; i < entities.length; i++) {
+            const entity = entities[i]
+            display.draw(entity.x, entity.y, entity.char, entity.foreground, entity.background)
         }
     },
     handleInput(inputType, inputData) {
