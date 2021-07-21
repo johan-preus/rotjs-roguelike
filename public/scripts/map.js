@@ -49,4 +49,8 @@ class Map {
             this.scheduler.add(entity, true)
         }
     }
+    getEntityAt(x, y){
+        // remember to change isEmptyFloor
+        console.log('get entity at not doing anything right now!');
+    }
 }

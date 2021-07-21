@@ -22,16 +22,10 @@ const playScreen = {
     enter() {
         console.log('Entered the play screen')
         const map = []
-        const mapHeight = 60
-        const mapWidth = 30
-        const mapDepth = 3
-        const builder = new Builder(mapWidth, mapHeight, mapDepth)
+        const builder = new Builder(Game.mapWidth, Game.mapHeight, Game.mapDepth)
         const tiles = builder.tiles
 
         // should this be in Game obj instead? may make more sense than screen obj
-        Game.player = new Player(playerTemplate)
-        // player is null for now
-        // get random empty position and pass it as player position
         this.map = new Map(tiles[0], Game.player)
         this.map.engine.start()
     },
@@ -39,12 +33,10 @@ const playScreen = {
         console.log('Exited the play screen')
     },
     render(display) {
-        const mapHeight = 60
-        const mapWidth = 30
         const screenWidth = Game.screenWidth
         const screenHeight = Game.screenHeight
-        for (let x = 0; x < mapWidth; x++) {
-            for (let y = 0; y < mapHeight; y++) {
+        for (let x = 0; x < Game.mapWidth; x++) {
+            for (let y = 0; y < Game.mapHeight; y++) {
                 const tile = this.map.getTile(x, y)
                 display.draw(x, y, tile.char, tile.foreground, tile.background)
             }
@@ -57,9 +49,42 @@ const playScreen = {
     },
     handleInput(inputType, inputData) {
         if (inputType === 'keydown') {
-            if (inputData.keyCode === ROT.KEYS.VK_RETURN) {
-                Game.switchScreen(victoryScreen)
+            switch (inputData.keyCode) {
+                case ROT.KEYS.VK_RETURN:
+                    Game.switchScreen(victoryScreen)
+                    break
+                case ROT.KEYS.VK_NUMPAD1:
+                    Game.player.move(-1, 1)
+                    break
+                case ROT.KEYS.VK_NUMPAD2:
+                case ROT.KEYS.VK_DOWN:
+                    Game.player.move(0, 1)
+                    break
+                case ROT.KEYS.VK_NUMPAD3:
+                    Game.player.move(1, 1)
+                    break
+                case ROT.KEYS.VK_NUMPAD4:
+                case ROT.KEYS.VK_LEFT:
+                    Game.player.move(-1, 0)
+                    break
+                case ROT.KEYS.VK_NUMPAD6:
+                case ROT.KEYS.VK_RIGHT:
+                    Game.player.move(1, 0)
+                    break
+                case ROT.KEYS.VK_NUMPAD7:
+                    Game.player.move(-1, -1)
+                    break
+                case ROT.KEYS.VK_NUMPAD8:
+                case ROT.KEYS.VK_UP:
+                    Game.player.move(0, -1)
+                    break
+                case ROT.KEYS.VK_NUMPAD9:
+                    Game.player.move(1, -1)
+                    break
+                default:
+                    break
             }
+            this.map.engine.unlock()
         }
     }
 }
@@ -74,5 +99,7 @@ const victoryScreen = {
     render(display) {
         display.drawText(1, 2, 'You win!')
     },
-    handleInput(inputType, inputData) {}
+    handleInput(inputType, inputData) {
+        console.log('input not being handled yet');
+    }
 }

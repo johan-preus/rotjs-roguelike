@@ -1,6 +1,9 @@
 const Game = {
-    screenWidth: 30,
-    screenHeight: 60,
+    mapWidth: 40,
+    mapHeight: 20,
+    mapDepth: 3,
+    screenWidth: 40,
+    screenHeight: 20,
     currentScreen: null,
     display: null,
     init() {
@@ -10,7 +13,7 @@ const Game = {
         })
         const bindEventToScreen = event => {
             window.addEventListener(event, e => {
-                if(this.currentScreen !== null){
+                if (this.currentScreen !== null) {
                     this.currentScreen.handleInput(event, e)
                 }
             })
@@ -19,20 +22,21 @@ const Game = {
         bindEventToScreen("keyup")
         bindEventToScreen("keypress")
         document.body.appendChild(this.display.getContainer())
+        this.player = new Player(playerTemplate)
         this.switchScreen(startScreen)
     },
-    switchScreen(screen){
-        if(this.currentScreen !== null){
+    switchScreen(screen) {
+        if (this.currentScreen !== null) {
             this.currentScreen.exit()
         }
         this.display.clear()
         this.currentScreen = screen
-        if(this.currentScreen !== null){
+        if (this.currentScreen !== null) {
             this.currentScreen.enter()
             this.refresh()
         }
     },
-    refresh(){
+    refresh() {
         this.display.clear()
         this.currentScreen.render(this.display)
     }
