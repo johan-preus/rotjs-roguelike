@@ -6,8 +6,9 @@ class Map {
         this.entities = []
         this.scheduler = new ROT.Scheduler.Simple()
         this.engine = new ROT.Engine(this.scheduler)
-
-        this.addEntityAtRandomPosition(player)
+        if(player){
+            this.addEntityAtRandomPosition(player)
+        }
     }
     getTile(x, y) {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height) return nullTile
