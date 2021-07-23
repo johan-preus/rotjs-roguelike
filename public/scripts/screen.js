@@ -29,8 +29,17 @@ const playScreen = {
         for (let i = 0; i < Game.mapDepth; i++) {
             if (i === 0) {
                 maps.push(new Map(tiles[i], Game.player))
+
+                // code to make down stairs
+
                 continue
             }
+            if(i === Game.mapDepth - 1){
+                // code to make up stairs
+                continue
+            }
+            // code to make up and down stairs
+
             maps.push(new Map(tiles[i]))
         }
         this.map = maps[0]
