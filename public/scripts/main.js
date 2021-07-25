@@ -1,12 +1,14 @@
 const Game = {
-    mapWidth: 400,
-    mapHeight: 200,
+    mapWidth: 40,
+    mapHeight: 20,
     mapDepth: 3,
     screenWidth: 40,
     screenHeight: 20,
     currentScreen: null,
     display: null,
-    maps: [],
+    maps: null,
+    map: null,
+    mapId: null,
     init() {
         this.display = new ROT.Display({
             width: this.screenWidth,

@@ -29,22 +29,22 @@ const playScreen = {
         for (let i = 0; i < Game.mapDepth; i++) {
             if (i === 0) {
                 maps.push(new Map(tiles[i], Game.player))
-
-                // code to make down stairs
-
+                maps[i].createDownStairs(3)
                 continue
             }
-            if(i === Game.mapDepth - 1){
-                // code to make up stairs
+            if (i === Game.mapDepth - 1) {
+                maps.push(new Map(tiles[i]))
+                maps[i].createUpStairs(3)
                 continue
             }
-            // code to make up and down stairs
-
             maps.push(new Map(tiles[i]))
+            maps[i].createUpStairs(3)
+            maps[i].createDownStairs(3)
         }
-        this.map = maps[0]
-        Game.maps.push(maps)
-        this.map.engine.start()
+        Game.mapId = 0
+        Game.map = maps[Game.mapId]
+        Game.maps = maps
+        Game.map.engine.start()
     },
     exit() {
         console.log('Exited the play screen')
@@ -56,14 +56,14 @@ const playScreen = {
         // Make sure the x-axis doesn't go to the left of the left bound
         let topLeftX = Math.max(0, Game.player.x - screenWidth / 2)
         // Make sure we still have enough space to fit an entire game screen
-        topLeftX = Math.min(topLeftX, this.map.width - screenWidth)
+        topLeftX = Math.min(topLeftX, Game.map.width - screenWidth)
 
         let topLeftY = Math.max(0, Game.player.y - screenHeight / 2)
-        topLeftY = Math.min(topLeftY, this.map.height - screenHeight)
+        topLeftY = Math.min(topLeftY, Game.map.height - screenHeight)
 
         for (let x = topLeftX; x < topLeftX + screenWidth; x++) {
             for (let y = topLeftY; y < topLeftY + screenHeight; y++) {
-                const tile = this.map.getTile(x, y)
+                const tile = Game.map.getTile(x, y)
                 display.draw(
                     x - topLeftX,
                     y - topLeftY,
@@ -73,7 +73,7 @@ const playScreen = {
                 )
             }
         }
-        const entities = this.map.entities
+        const entities = Game.map.entities
         for (let i = 0; i < entities.length; i++) {
             const entity = entities[i]
             if (
@@ -92,46 +92,7 @@ const playScreen = {
             }
         }
     },
-    handleInput(inputType, inputData) {
-        if (inputType === 'keydown') {
-            switch (inputData.keyCode) {
-                case ROT.KEYS.VK_RETURN:
-                    Game.switchScreen(victoryScreen)
-                    break
-                case ROT.KEYS.VK_NUMPAD1:
-                    Game.player.move(-1, 1)
-                    break
-                case ROT.KEYS.VK_NUMPAD2:
-                case ROT.KEYS.VK_DOWN:
-                    Game.player.move(0, 1)
-                    break
-                case ROT.KEYS.VK_NUMPAD3:
-                    Game.player.move(1, 1)
-                    break
-                case ROT.KEYS.VK_NUMPAD4:
-                case ROT.KEYS.VK_LEFT:
-                    Game.player.move(-1, 0)
-                    break
-                case ROT.KEYS.VK_NUMPAD6:
-                case ROT.KEYS.VK_RIGHT:
-                    Game.player.move(1, 0)
-                    break
-                case ROT.KEYS.VK_NUMPAD7:
-                    Game.player.move(-1, -1)
-                    break
-                case ROT.KEYS.VK_NUMPAD8:
-                case ROT.KEYS.VK_UP:
-                    Game.player.move(0, -1)
-                    break
-                case ROT.KEYS.VK_NUMPAD9:
-                    Game.player.move(1, -1)
-                    break
-                default:
-                    break
-            }
-            this.map.engine.unlock()
-        }
-    }
+    handleInput: gameInput,
 }
 
 const victoryScreen = {

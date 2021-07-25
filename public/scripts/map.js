@@ -6,7 +6,7 @@ class Map {
         this.entities = []
         this.scheduler = new ROT.Scheduler.Simple()
         this.engine = new ROT.Engine(this.scheduler)
-        if(player){
+        if (player) {
             this.addEntityAtRandomPosition(player)
         }
     }
@@ -50,8 +50,61 @@ class Map {
             this.scheduler.add(entity, true)
         }
     }
-    getEntityAt(x, y){
+    removeEntity(entity){
+        for (let i = 0; i < this.entities.length; i++) {
+            if (this.entities[i] === entity) {
+                this.entities.splice(i, 1)
+                break
+            }
+        }
+        if (entity.hasMixin("Actor")) {
+            this.scheduler.remove(entity)
+        }
+    }
+    getEntityAt(x, y) {
         // remember to change isEmptyFloor
         console.log('get entity at not doing anything right now!');
+    }
+    createDownStairs(num) {
+        for (let i = 0; i < num; i++) {
+            const {
+                x,
+                y
+            } = this.getRandomFloorPosition()
+            this.tiles[x][y] = new stairsDownTile(i)
+        }
+    }
+    createUpStairs(num) {
+        for (let i = 0; i < num; i++) {
+            const {
+                x,
+                y
+            } = this.getRandomFloorPosition()
+            this.tiles[x][y] = new stairsUpTile(i)
+        }
+    }
+    findUpStair(id) {
+        for (let x = 0; x < this.width; x++) {
+            for (let y = 0; y < this.height; y++) {
+                if (this.tiles[x][y].isUpStair && this.tiles[x][y].stairId === id) {
+                    return {
+                        x,
+                        y
+                    }
+                }
+            }
+        }
+    }
+    findDownStair(id) {
+        for (let x = 0; x < this.width; x++) {
+            for (let y = 0; y < this.height; y++) {
+                if (this.tiles[x][y].isDownStair && this.tiles[x][y].stairId === id) {
+                    return {
+                        x,
+                        y
+                    }
+                }
+            }
+        }
     }
 }
