@@ -41,7 +41,7 @@ class Player extends Entity {
 }
 
 const playerTemplate = {
-    name: 'player',
+    name: 'Player',
     char: "@",
     foreground: "yellow",
     background: "black",
