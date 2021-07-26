@@ -7,6 +7,10 @@ const destructible = {
     takeDamage(attacker, damage) {
         this.hp -= damage
         if (this.hp <= 0) {
+            if(this === Game.player){
+                Game.switchScreen(loseScreen)
+                return
+            }
             this.map.removeEntity(this)
         }
     }

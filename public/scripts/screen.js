@@ -20,7 +20,11 @@ const startScreen = {
 
 const playScreen = {
     enter() {
+        // most initialization done here instead of game init so game can be restarted from game over screen
         console.log('Entered the play screen')
+        Game.player = new Player(playerTemplate)
+        this.hpPos = 1
+        this.hpBarPos = 2
         const builder = new Builder(Game.mapWidth, Game.mapHeight, Game.mapDepth)
         const tiles = builder.tiles
         const maps = []
@@ -91,6 +95,41 @@ const playScreen = {
                 )
             }
         }
+        display.draw(
+            screenWidth + 2,
+            this.hpPos,
+            'Hp:',
+            'yellow',
+        )
+        display.draw(
+            screenWidth + 7,
+            this.hpPos,
+            `${Game.player.hp}/${Game.player.maxHp}`,
+            'yellow'
+        )
+        const hpBarNum = Math.round(Game.player.hp / Game.player.maxHp * 10)
+        for(let i = 0; i <= hpBarNum; i++){
+            if(i === 0){
+                display.drawText(
+                    screenWidth + 2,
+                    this.hpBarPos,
+                    '%c{red}%b{red}.'
+                )
+                continue
+            }
+            display.drawText(
+                screenWidth + i,
+                this.hpBarPos,
+                '%c{red}%b{red}.'
+            )
+        }
+        for(let i = 10; i > hpBarNum; i--){
+            display.drawText(
+                screenWidth + i,
+                this.hpBarPos,
+                '%c{#808080}%b{#808080}.'
+            )
+        }
     },
     handleInput: gameInput,
 }
@@ -103,9 +142,34 @@ const victoryScreen = {
         console.log('Exited the win screen')
     },
     render(display) {
-        display.drawText(1, 2, 'You win!')
+        display.drawText(1, 2, '%c{yellow}You win!')
+        display.drawText(1, 3, 'Press enter to play again.')
     },
     handleInput(inputType, inputData) {
-        console.log('victory screen input not being handled yet');
+        if (inputType === 'keydown') {
+            if (inputData.keyCode === ROT.KEYS.VK_RETURN) {
+                Game.switchScreen(playScreen)
+            }
+        }
+    }
+}
+
+const loseScreen = {
+    enter() {
+        console.log('Entered the lose screen')
+    },
+    exit() {
+        console.log('Exited the lose screen')
+    },
+    render(display) {
+        display.drawText(1, 2, '%c{red}You lose!')
+        display.drawText(1, 3, 'Press enter to play again.')
+    },
+    handleInput(inputType, inputData) {
+        if (inputType === 'keydown') {
+            if (inputData.keyCode === ROT.KEYS.VK_RETURN) {
+                Game.switchScreen(playScreen)
+            }
+        }
     }
 }

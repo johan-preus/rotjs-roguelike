@@ -1,9 +1,6 @@
 function gameInput(inputType, inputData) {
     if (inputType === 'keydown') {
         switch (inputData.keyCode) {
-            case ROT.KEYS.VK_RETURN:
-                Game.switchScreen(victoryScreen)
-                break
             case ROT.KEYS.VK_NUMPAD1:
                 Game.player.move(-1, 1)
                 break

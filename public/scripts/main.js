@@ -11,8 +11,9 @@ const Game = {
     mapId: null,
     init() {
         this.display = new ROT.Display({
-            width: this.screenWidth,
-            height: this.screenHeight
+            width: this.screenWidth + 12,
+            height: this.screenHeight,
+            forceSquareRatio: true,
         })
         const bindEventToScreen = event => {
             window.addEventListener(event, e => {
@@ -25,7 +26,6 @@ const Game = {
         bindEventToScreen("keyup")
         bindEventToScreen("keypress")
         document.body.appendChild(this.display.getContainer())
-        this.player = new Player(playerTemplate)
         this.switchScreen(startScreen)
     },
     switchScreen(screen) {
