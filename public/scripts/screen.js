@@ -23,8 +23,10 @@ const playScreen = {
         // most initialization done here instead of game init so game can be restarted from game over screen
         console.log('Entered the play screen')
         Game.player = new Player(playerTemplate)
+        Game.enemies = 0
         this.hpPos = 1
         this.hpBarPos = 2
+        this.enemiesPos = 4
         const builder = new Builder(Game.mapWidth, Game.mapHeight, Game.mapDepth)
         const tiles = builder.tiles
         const maps = []
@@ -130,6 +132,11 @@ const playScreen = {
                 '%c{#808080}%b{#808080}.'
             )
         }
+        display.drawText(
+            screenWidth + 1,
+            this.enemiesPos,
+            `Enemies Remaining: ${Game.enemies}`
+        )
     },
     handleInput: gameInput,
 }

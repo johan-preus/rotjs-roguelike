@@ -52,5 +52,6 @@ const playerTemplate = {
     foreground: "yellow",
     background: "black",
     maxHp: 50,
-    mixins: [mixinPlayerActor, moveable, destructible],
+    attackValue: 10,
+    mixins: [mixinPlayerActor, moveable, destructible, attacker],
 }

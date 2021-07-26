@@ -26,6 +26,9 @@ class Map {
             y
         }
     }
+    isFloor(x, y){
+        return this.getTile(x, y) === floorTile
+    }
     isEmptyFloor(x, y) {
         return this.getTile(x, y) === floorTile && !this.getEntityAt(x, y)
     }
@@ -50,6 +53,9 @@ class Map {
         if (entity.hasMixin("Actor")) {
             this.scheduler.add(entity, true)
         }
+        if(entity.hasMixin('Enemy')){
+            Game.enemies++
+        }
     }
     removeEntity(entity) {
         for (let i = 0; i < this.entities.length; i++) {
@@ -61,14 +67,25 @@ class Map {
         if (entity.hasMixin("Actor")) {
             this.scheduler.remove(entity)
         }
+        if(entity.hasMixin('Enemy')){
+            Game.enemies--
+            if(Game.enemies === 0){
+                Game.switchScreen(victoryScreen)
+            }
+        }
     }
     getEntityAt(x, y) {
-        // remember to change isEmptyFloor
-        console.log('get entity at not doing anything right now, just returning false!');
-        // if no entity
-        return false
-        // if entity
-        return true
+        let entity = null
+        for (let i = 0; i < this.entities.length; i++) {
+            if (
+                this.entities[i].x === x &&
+                this.entities[i].y === y
+            ) {
+                entity = this.entities[i]
+            }
+        }
+        if (!entity) return false
+        return entity
     }
     createDownStairs(num) {
         for (let i = 0; i < num; i++) {

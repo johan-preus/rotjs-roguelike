@@ -16,13 +16,14 @@ const floorTile = new Tile({
 })
 const wallTile = new Tile({
     char: '#',
+    foreground: '#A67B5B'
 })
 
 class stairsUpTile extends Tile {
     constructor(num){
         super({
             char: '<',
-            foreground: 'white',
+            foreground: '#999999',
             isWalkable: true,
         })
         this.stairId = num
@@ -33,20 +34,10 @@ class stairsDownTile extends Tile {
     constructor(num){
         super({
             char: '>',
-            foreground: 'white',
+            foreground: '#999999',
             isWalkable: true,
         })
         this.stairId = num
         this.isDownStair = true
     }
 }
-// const stairsUpTile = new Tile({
-//     char: '<',
-//     foreground: 'white',
-//     isWalkable: true,
-// })
-// const stairsDownTile = new Tile({
-//     char: '>',
-//     foreground: 'white',
-//     isWalkable: true,
-// })

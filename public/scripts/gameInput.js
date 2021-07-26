@@ -15,6 +15,9 @@ function gameInput(inputType, inputData) {
             case ROT.KEYS.VK_LEFT:
                 Game.player.move(-1, 0)
                 break
+            case ROT.KEYS.VK_NUMPAD5:
+                // pass turn
+                break
             case ROT.KEYS.VK_NUMPAD6:
             case ROT.KEYS.VK_RIGHT:
                 Game.player.move(1, 0)
@@ -34,7 +37,6 @@ function gameInput(inputType, inputData) {
                 return
         }
         Game.map.engine.unlock()
-        return
     }
     if (inputType === 'keypress') {
         switch (inputData.keyCode){

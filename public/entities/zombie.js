@@ -10,5 +10,6 @@ const zombieTemplate = {
     background: 'black',
     char: 'Z',
     attackValue: 5,
-    mixins: [zombieActor, destructible, attacker],
+    detectionRadius: 5,
+    mixins: [zombieActor, destructible, attacker, moveable, enemy],
 }
