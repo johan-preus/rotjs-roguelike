@@ -16,7 +16,10 @@ class Player extends Entity {
             Game.mapId++
             Game.map = Game.maps[Game.mapId]
             this.map = Game.map
-            const {x, y} = Game.map.findUpStair(id)
+            const {
+                x,
+                y
+            } = Game.map.findUpStair(id)
             this.x = x
             this.y = y
             Game.map.addEntity(this)
@@ -31,7 +34,10 @@ class Player extends Entity {
             Game.mapId--
             Game.map = Game.maps[Game.mapId]
             this.map = Game.map
-            const {x, y} = Game.map.findDownStair(id)
+            const {
+                x,
+                y
+            } = Game.map.findDownStair(id)
             this.x = x
             this.y = y
             Game.map.addEntity(this)
@@ -45,5 +51,6 @@ const playerTemplate = {
     char: "@",
     foreground: "yellow",
     background: "black",
-    mixins: [mixinPlayerActor, moveable],
+    maxHp: 50,
+    mixins: [mixinPlayerActor, moveable, destructible],
 }

@@ -1,5 +1,5 @@
 class Zombie extends Entity {
-    constructor(properties){
+    constructor(properties) {
         super(properties)
     }
 }
@@ -9,5 +9,6 @@ const zombieTemplate = {
     foreground: 'red',
     background: 'black',
     char: 'Z',
-    mixins: [],
+    attackValue: 5,
+    mixins: [zombieActor, destructible, attacker],
 }

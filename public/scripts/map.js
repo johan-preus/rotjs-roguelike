@@ -9,6 +9,7 @@ class Map {
         if (player) {
             this.addEntityAtRandomPosition(player)
         }
+        this.addEntityAtRandomPosition(new Zombie(zombieTemplate))
     }
     getTile(x, y) {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height) return nullTile
@@ -26,7 +27,7 @@ class Map {
         }
     }
     isEmptyFloor(x, y) {
-        return this.getTile(x, y) === floorTile // && !this.getEntityAt(x, y)
+        return this.getTile(x, y) === floorTile && !this.getEntityAt(x, y)
     }
     addEntityAtRandomPosition(entity) {
         const position = this.getRandomFloorPosition()
@@ -50,7 +51,7 @@ class Map {
             this.scheduler.add(entity, true)
         }
     }
-    removeEntity(entity){
+    removeEntity(entity) {
         for (let i = 0; i < this.entities.length; i++) {
             if (this.entities[i] === entity) {
                 this.entities.splice(i, 1)
@@ -63,7 +64,11 @@ class Map {
     }
     getEntityAt(x, y) {
         // remember to change isEmptyFloor
-        console.log('get entity at not doing anything right now!');
+        console.log('get entity at not doing anything right now, just returning false!');
+        // if no entity
+        return false
+        // if entity
+        return true
     }
     createDownStairs(num) {
         for (let i = 0; i < num; i++) {
