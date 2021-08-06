@@ -1,23 +1,3 @@
-const startScreen = {
-    enter() {
-        console.log('Entered the start screen')
-    },
-    exit() {
-        console.log('Exited the start screen')
-    },
-    render(display) {
-        display.drawText(1, 1, '%c{yellow}Welcome to rot.js roguelike!')
-        display.drawText(1, 2, 'Press enter to start!')
-    },
-    handleInput(inputType, inputData) {
-        if (inputType === 'keydown') {
-            if (inputData.keyCode === ROT.KEYS.VK_RETURN) {
-                Game.switchScreen(playScreen)
-            }
-        }
-    }
-}
-
 const playScreen = {
     enter() {
         // most initialization done here instead of game init so game can be restarted from game over screen
@@ -141,44 +121,4 @@ const playScreen = {
         )
     },
     handleInput: gameInput,
-}
-
-const victoryScreen = {
-    enter() {
-        console.log('Entered the win screen')
-    },
-    exit() {
-        console.log('Exited the win screen')
-    },
-    render(display) {
-        display.drawText(1, 2, '%c{yellow}You win!')
-        display.drawText(1, 3, 'Press enter to play again.')
-    },
-    handleInput(inputType, inputData) {
-        if (inputType === 'keydown') {
-            if (inputData.keyCode === ROT.KEYS.VK_RETURN) {
-                Game.switchScreen(playScreen)
-            }
-        }
-    }
-}
-
-const loseScreen = {
-    enter() {
-        console.log('Entered the lose screen')
-    },
-    exit() {
-        console.log('Exited the lose screen')
-    },
-    render(display) {
-        display.drawText(1, 2, '%c{red}You lose!')
-        display.drawText(1, 3, 'Press enter to play again.')
-    },
-    handleInput(inputType, inputData) {
-        if (inputType === 'keydown') {
-            if (inputData.keyCode === ROT.KEYS.VK_RETURN) {
-                Game.switchScreen(playScreen)
-            }
-        }
-    }
 }
