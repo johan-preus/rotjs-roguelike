@@ -9,6 +9,7 @@ const Game = {
     maps: null,
     map: null,
     mapId: null,
+    inProgress: false,
     init() {
         this.display = new ROT.Display({
             width: this.screenWidth + 12,
