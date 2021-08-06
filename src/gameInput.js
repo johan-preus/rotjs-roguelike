@@ -46,6 +46,9 @@ function gameInput(inputType, inputData) {
             case ROT.KEYS.VK_GREATER_THAN:
                 Game.player.goDown()
                 break
+            case ROT.KEYS.VK_QUESTION_MARK:
+                Game.switchScreen(helpScreen)
+                break
             default:
                 return
         }

@@ -1,6 +1,7 @@
 const victoryScreen = {
     enter() {
         console.log('Entered the win screen')
+        Game.inProgress = false
     },
     exit() {
         console.log('Exited the win screen')

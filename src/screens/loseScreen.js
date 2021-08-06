@@ -1,6 +1,7 @@
 const loseScreen = {
     enter() {
         console.log('Entered the lose screen')
+        Game.inProgress = false
     },
     exit() {
         console.log('Exited the lose screen')

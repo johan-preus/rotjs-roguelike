@@ -3,35 +3,11 @@ const playScreen = {
         // most initialization done here instead of game init so game can be restarted from game over screen
         console.log('Entered the play screen')
         if(!Game.inProgress){
-            Game.player = new Player(playerTemplate)
-            Game.enemies = 0
+            Game.startGame()
             this.hpPos = 1
             this.hpBarPos = 2
             this.enemiesPos = 4
-            const builder = new Builder(Game.mapWidth, Game.mapHeight, Game.mapDepth)
-            const tiles = builder.tiles
-            const maps = []
-    
-            // generate the world according to given depth
-            for (let i = 0; i < Game.mapDepth; i++) {
-                if (i === 0) {
-                    maps.push(new Map(tiles[i], Game.player))
-                    maps[i].createDownStairs(3)
-                    continue
-                }
-                if (i === Game.mapDepth - 1) {
-                    maps.push(new Map(tiles[i]))
-                    maps[i].createUpStairs(3)
-                    continue
-                }
-                maps.push(new Map(tiles[i]))
-                maps[i].createUpStairs(3)
-                maps[i].createDownStairs(3)
-            }
-            Game.mapId = 0
-            Game.map = maps[Game.mapId]
-            Game.maps = maps
-            Game.map.engine.start()
+            this.helpPos = Game.screenHeight - 1
         }
     },
     exit() {
@@ -118,6 +94,11 @@ const playScreen = {
             screenWidth + 1,
             this.enemiesPos,
             `Enemies Remaining: ${Game.enemies}`
+        )
+        display.drawText(
+            screenWidth + 2, 
+            this.helpPos,
+            'Help (?)'
         )
     },
     handleInput: gameInput,
