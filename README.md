@@ -10,7 +10,7 @@ Numpad - movement (5 to wait)
 
 Arrow keys - movement
 
-> - descend
+\> - descend
 
 < - ascend
 
