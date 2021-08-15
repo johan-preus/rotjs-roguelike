@@ -15,8 +15,14 @@ const helpScreen = {
     },
     handleInput(inputType, inputData){
         if (inputType === 'keydown') {
-            if (inputData.keyCode === ROT.KEYS.VK_RETURN) {
-                Game.switchScreen(playScreen)
+            switch(inputData.keyCode){
+                case ROT.KEYS.VK_RETURN:
+                    Game.switchScreen(playScreen)
+                    break
+                case ROT.KEYS.VK_ESCAPE:
+                    Game.switchScreen(playScreen)
+                    break
+                default: return
             }
         }
     }

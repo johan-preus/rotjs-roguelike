@@ -14,18 +14,31 @@ class Builder {
         for(let w = 0; w < this.width; w++){
             map[w] = new Array(this.height)
         }
-        const generator = new ROT.Map.Cellular(this.width, this.height)
+        const generator = new ROT.Map.Cellular(this.width, this.height, {connected: true})
         generator.randomize(0.5)
         const totalIterations = 3
         for(let i = 0; i < totalIterations; i++){
             generator.create()
         }
-        generator.create(function(x, y, v){
-            if(v === 1){
-                map[x][y] = floorTile
-            } else {
-                map[x][y] = wallTile
-            }
+        
+        // generator.create(function(x, y, v){
+        //     if(v === 1){
+        //         map[x][y] = floorTile
+        //     } else {
+        //         map[x][y] = wallTile
+        //     }
+        // })
+
+        generator.create()
+        generator.connect(null, 1)
+        generator._map.forEach((arr, x) => {
+            arr.forEach((value, y) => {
+                if(value === 1){
+                    map[x][y] = floorTile
+                } else {
+                    map[x][y] = wallTile
+                }
+            })
         })
         return map
     }
