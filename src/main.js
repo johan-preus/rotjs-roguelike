@@ -1,9 +1,9 @@
 const Game = {
-    mapWidth: 40,
-    mapHeight: 20,
+    mapWidth: 80,
+    mapHeight: 40,
     mapDepth: 3,
-    screenWidth: 40,
-    screenHeight: 20,
+    screenWidth: 30,
+    screenHeight: 15,
     currentScreen: null,
     display: null,
     maps: null,

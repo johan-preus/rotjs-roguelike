@@ -18,11 +18,12 @@ const playScreen = {
         const screenHeight = Game.screenHeight
 
         // Make sure the x-axis doesn't go to the left of the left bound
-        let topLeftX = Math.max(0, Game.player.x - screenWidth / 2)
+        // Math.ceil prevents errors with odd screenWidth
+        let topLeftX = Math.max(0, Game.player.x - Math.ceil(screenWidth / 2))
         // Make sure we still have enough space to fit an entire game screen
         topLeftX = Math.min(topLeftX, Game.map.width - screenWidth)
 
-        let topLeftY = Math.max(0, Game.player.y - screenHeight / 2)
+        let topLeftY = Math.max(0, Game.player.y - Math.ceil(screenHeight / 2))
         topLeftY = Math.min(topLeftY, Game.map.height - screenHeight)
 
         for (let x = topLeftX; x < topLeftX + screenWidth; x++) {
